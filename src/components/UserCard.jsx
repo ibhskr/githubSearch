@@ -6,7 +6,7 @@ function UserCard({ user }) {
   const navigate = useNavigate();
   console.log(user);
   return (
-    <div className=" w-56 p-10 m-2 shadow-lg border flex justify-center items-center ">
+    <div className=" w-40 sm:w-50 p-10 m-2 shadow-lg border flex justify-center items-center ">
       <div className="  flex flex-col items-center">
         {/* <img className="w-4 h-4" src={user.avatar_url} alt="" /> */}
         <Avatar

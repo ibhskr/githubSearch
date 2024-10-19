@@ -20,9 +20,12 @@ function Home() {
 
   return (
     <div
-      className="flex justify-center items-center min-h-screen bg-cover bg-center"
+      className="flex flex-col justify-center items-center min-h-screen bg-cover bg-center"
       style={{ backgroundImage: `url(${bgImageLink})` }}
     >
+      <h1 className="text-2xl sm:text-4xl md:text-6xl  bg-white font-extrabold rounded-2xl p-2 mb-4 ">
+        GitHub Profile Explorer
+      </h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className=" backdrop-blur-md  shadow-md rounded-lg p-8 max-w-md w-full bg-opacity-80"
@@ -51,7 +54,7 @@ function Home() {
 
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white font-medium py-2 rounded-lg hover:bg-blue-600 transition duration-200"
+          className="w-full bg-blue-500 text-black font-medium py-2 rounded-lg hover:bg-blue-600 transition duration-200"
         >
           Search
         </button>
