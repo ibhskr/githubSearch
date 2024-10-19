@@ -4,9 +4,9 @@ import Stack from "@mui/material/Stack";
 import { useNavigate } from "react-router-dom";
 function UserCard({ user }) {
   const navigate = useNavigate();
-  console.log(user);
+  // console.log(user);
   return (
-    <div className=" w-40 sm:w-50 p-10 m-2 shadow-lg border flex justify-center items-center ">
+    <div className=" w-40 sm:w-52 p-10 m-2 shadow-lg border flex justify-center items-center hover:bg-blue-100 ">
       <div className="  flex flex-col items-center">
         {/* <img className="w-4 h-4" src={user.avatar_url} alt="" /> */}
         <Avatar
@@ -16,7 +16,7 @@ function UserCard({ user }) {
         />
         <p>{user.login}</p>
         <button
-          className="bg-blue-400 p-1 rounded-lg mt-4 w-32"
+          className="bg-blue-400 hover:bg-blue-600 hover:shadow-lg p-1 rounded-lg mt-4 w-32"
           onClick={() => {
             navigate(`/user/${user.login}`);
           }}

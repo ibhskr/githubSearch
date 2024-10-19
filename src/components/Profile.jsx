@@ -4,7 +4,8 @@ import axios from "axios";
 import Avatar from "@mui/material/Avatar";
 import { FaUserFriends } from "react-icons/fa";
 import RepoCard from "./RepoCard";
-
+import { FaLocationArrow } from "react-icons/fa";
+import { FaBlog } from "react-icons/fa";
 function Profile() {
   const { username } = useParams(); // Get the username from the URL
   const [user, setUser] = useState({}); // Initialize as an empty object
@@ -61,9 +62,9 @@ function Profile() {
     fetchUserDetails(); // Fetch user details on initial render
   }, [username]); // Re-run when the username changes
 
-  console.log(repositories);
+  // console.log(repositories);
   repositories.reverse();
-  console.log(repositories);
+  // console.log(repositories);
   if (user.length == 0) {
     return <p>User not found !</p>;
   } else {
@@ -79,7 +80,12 @@ function Profile() {
           />
           <p className="text-2xl font-semibold mb-2">{user.name}</p>
           <p className="text-gray-700 italic mb-4">{user.bio}</p>
-          <p className="text-gray-600">Location: {user.location || "N/A"}</p>
+          <div className="flex justify-center items-center">
+            <FaLocationArrow />
+            <p className="text-gray-600 ml-2">
+              Location: {user.location || "N/A"}
+            </p>
+          </div>
 
           <div className="flex justify-center items-center text-gray-700 my-4">
             <FaUserFriends className="mr-2" />
@@ -87,10 +93,9 @@ function Profile() {
               Followers: {user.followers} | Following: {user.following}
             </p>
           </div>
-
-          <div className="space-y-2 text-gray-600">
-            <p>Company: {user.company || "N/A"}</p>
-            <p>
+          <div className="flex justify-center items-center">
+            <FaBlog />
+            <p className="ml-2">
               Blog:{" "}
               <a
                 href={user.blog}
@@ -101,20 +106,34 @@ function Profile() {
                 {user.blog || "N/A"}
               </a>
             </p>
-            <p>Email: {user.email || "N/A"}</p>
-            <p>Hireable: {user.hireable ? "Yes" : "No"}</p>
-            <p>Twitter: @{user.twitter_username || "N/A"}</p>
           </div>
 
-          <div className="mt-4">
-            <p className="text-gray-700">Repositories: {user.public_repos}</p>
-            <p className="text-gray-700">Gists: {user.public_gists}</p>
-            <p className="text-gray-500 text-sm">
-              Created At: {new Date(user.created_at).toLocaleDateString()}
-            </p>
-            <p className="text-gray-500 text-sm">
-              Last Updated: {new Date(user.updated_at).toLocaleDateString()}
-            </p>
+          {/* cards */}
+          <div className="md:grid md:grid-cols-2 text-sm">
+            {/* <div className="space-y-2 text-gray-600"> */}
+            <div className="bg-green-300 p-4 m-4 rounded-xl">
+              <p>Company: {user.company || "N/A"}</p>
+              <p>Hireable: {user.hireable ? "Yes" : "No"}</p>
+            </div>
+            <div className="bg-red-300 p-4 m-4 rounded-xl">
+              <p>Email: {user.email || "N/A"}</p>
+
+              <p>Twitter: @{user.twitter_username || "N/A"}</p>
+            </div>
+            {/* </div> */}
+
+            <div className="bg-indigo-300 p-4 m-4 rounded-xl ">
+              <p>Repositories: {user.public_repos}</p>
+              <p>Gists: {user.public_gists}</p>
+            </div>
+            <div className="bg-orange-300 p-4 m-4 rounded-xl ">
+              <p>
+                Created At: {new Date(user.created_at).toLocaleDateString()}
+              </p>
+              <p>
+                Last Updated: {new Date(user.updated_at).toLocaleDateString()}
+              </p>
+            </div>
           </div>
         </div>
 
@@ -122,9 +141,11 @@ function Profile() {
         <div className="bg-white shadow-md rounded-lg p-6 md:overflow-y-auto md:border">
           <h2 className="text-xl font-bold mb-4">Repositories</h2>
           <ul className="space-y-4">
-            {repositories.map((repo) => (
-              <RepoCard key={repo.id} repo={repo} />
-            ))}
+            {repositories
+              .sort((a, b) => new Date(b.created_at) - new Date(a.created_at)) // Sort by created_at in descending order
+              .map((repo) => (
+                <RepoCard key={repo.id} repo={repo} />
+              ))}
           </ul>
           {/* Load More Button */}
           {hasMoreRepos && (

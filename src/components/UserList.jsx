@@ -50,6 +50,7 @@ function UserList() {
       fetchUser(name, nextPage); // Fetch the next page of users
     }
   };
+  // console.log(users);
 
   return (
     <div>
